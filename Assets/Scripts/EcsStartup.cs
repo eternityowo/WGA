@@ -1,8 +1,11 @@
 using Leopotam.Ecs;
+using TowerDefenceLeoEcs.Systems;
 using UnityEngine;
 using WGA.AppData;
 using WGA.Components;
+using WGA.Components.Events.InputEvents;
 using WGA.Systems;
+using WGA.Systems.Controller;
 
 namespace WGA 
 {
@@ -25,23 +28,28 @@ namespace WGA
 #endif
             _systems
                 // register your systems here, for example:
-                // .Add (new TestSystem1 ())
-                // .Add (new TestSystem2 ())
+                .Add(new InputSystem())
+                .Add(new GameStateInputSystem())
                 .Add(new InitTableSystem())
+                .Add(new GameStartSystem()
+                )
                 .Add(new ClickSystem())
                 .Add(new DrawOutlineSystem())
                 .Add(new MoveSystem())
 
+                .Add(new GameStateChangeSystem())
+                .Add(new GameOverSystem())
+
                 // register one-frame components (order is important), for example:
-                // .OneFrame<TestComponent1> ()
-                // .OneFrame<TestComponent2> ()
                 .OneFrame<DrawOutlineEvent>()
                 .OneFrame<ClearOutlineEvent>()
                 .OneFrame<MoveEvent>()
 
+                .OneFrame<InputAnyKeyEvent>()
+                .OneFrame<InputPauseQuitEvent>()
+                .OneFrame<InputRestartLeveltEvent>()
+
                 // inject service instances here (order doesn't important), for example:
-                // .Inject (new CameraService ())
-                // .Inject (new NavMeshSupport ())
                 .Inject(Configuration)
                 .Inject(GetComponent<SceneData>())
                 .Inject(GetComponent<TableData>())

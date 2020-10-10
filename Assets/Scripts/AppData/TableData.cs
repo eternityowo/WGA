@@ -7,7 +7,7 @@ namespace WGA.AppData
     public class TableData : MonoBehaviour
     {
         public Tile Empty;
-        public Tile Freezy;
+        //public Tile Freezy;
 
         public Tile CardPlace;
         public List<Tile> Cards;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FreezyBack
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 152fc5b437d1fd3419722d07770c0df1, type: 3}
-  m_Color: {r: 0.1537024, g: 0.17677873, b: 0.20754719, a: 1}
+  m_Color: {r: 0.33333334, g: 0.3921569, b: 0.47058827, a: 1}
   m_Transform:
     e00: 1
     e01: 0
