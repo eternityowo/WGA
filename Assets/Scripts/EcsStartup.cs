@@ -27,27 +27,30 @@ namespace WGA
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create (_systems);
 #endif
             _systems
-                // register your systems here, for example:
+                // register your systems here (order is important), for example:
                 .Add(new InputSystem())
                 .Add(new GameStateInputSystem())
                 .Add(new InitTableSystem())
-                .Add(new GameStartSystem()
-                )
+                .Add(new GameStartSystem())
                 .Add(new ClickSystem())
+                .Add(new OnSelectSystem())
+                .Add(new ÑlearOutlineSystem())
                 .Add(new DrawOutlineSystem())
                 .Add(new MoveSystem())
 
-                .Add(new GameStateChangeSystem())
                 .Add(new GameOverSystem())
+                .Add(new GameStateChangeSystem())
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<DrawOutlineEvent>()
                 .OneFrame<ClearOutlineEvent>()
                 .OneFrame<MoveEvent>()
+                .OneFrame<SelectEvent>()
 
                 .OneFrame<InputAnyKeyEvent>()
                 .OneFrame<InputPauseQuitEvent>()
                 .OneFrame<InputRestartLeveltEvent>()
+                .OneFrame<ChangeGameStateRequest>()
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(Configuration)

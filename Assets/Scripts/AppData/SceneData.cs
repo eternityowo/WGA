@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -15,8 +16,17 @@ namespace WGA.AppData
         public Text Text = default;
 
         [Header("Scene object")]
+        [Header("Tilemap&Tiles")]
         public Tilemap IndicatorTilemap = default;
         public Tilemap CoreTilemap = default;
         public Tilemap SelectTilemap = default;
+
+        public Tile Empty;
+
+        public Tile CardPlace;
+        public List<Tile> Cards;
+
+        public Tile Select;
+        public Tile Move;
     }
 }

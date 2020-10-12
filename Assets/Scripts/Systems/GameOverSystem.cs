@@ -10,7 +10,6 @@ namespace WGA.Systems.Controller
     internal sealed class GameOverSystem : IEcsRunSystem
     {
         private GameContext _context;
-        private SceneData _sceneData;
 
         private readonly EcsWorld _world = null;
 

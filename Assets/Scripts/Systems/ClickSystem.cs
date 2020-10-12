@@ -38,10 +38,34 @@ namespace WGA.Systems
             }
 
             var card = _context.Table[tileGridPos];
-            if (!card.IsNull() && card.Has<IsCard>())
+            if (!card.IsNull() && card.IsAlive() && card.Has<IsCard>())
             {
                 card.Get<Selected>().Value = tileGridPos;
-                _world.SendMessage(new DrawOutlineEvent() { Value = tileGridPos });
+                _world.SendMessage(new SelectEvent());
+            }
+        }
+    }
+
+    internal sealed class OnSelectSystem : IEcsRunSystem
+    {
+        private readonly SceneData _sceneData = null;
+        private readonly GameContext _context = null;
+
+        private readonly EcsFilter<SelectEvent> _selectEvents = null;
+        private readonly EcsFilter<IsCard, Selected> _selectedEntities = null;
+
+        void IEcsRunSystem.Run()
+        {
+            if (!_selectEvents.IsEmpty())
+            {
+                foreach(var i in _selectedEntities)
+                {
+                    var entity = _selectedEntities.GetEntity(i);
+                    ref var selectedComponet = ref  _selectedEntities.Get2(i);
+
+                    entity.Get<EmptyNeighbors>().Value = _context.Table.CheckEmptyNeighborsContinue<IsEmpty>(selectedComponet.Value, 1).ToArray();
+                    entity.Get<DrawOutlineEvent>().Value = selectedComponet.Value;
+                }
             }
         }
     }

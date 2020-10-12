@@ -11,17 +11,19 @@ namespace WGA.Systems
         private readonly GameContext _context = null;
         private readonly SceneData _sceneData = null;
 
-        private readonly EcsFilter<IsCard, MoveEvent> _moveFilter = null;
+        private readonly EcsFilter<IsCard, MoveEvent, EmptyNeighbors> _moveFilter = null;
 
         void IEcsRunSystem.Run()
         {
             foreach (var i in _moveFilter)
             {
                 ref var move = ref _moveFilter.Get2(i);
+                ref var neighbors = ref _moveFilter.Get3(i);
 
-                if(_context.Table.CheckEmptyNeighborsContinue<IsEmpty>(move.From, 1).Contains(move.To))
+                if (neighbors.Value.Contains(move.To))
                 {
                     SwapTile(move.From, move.To);
+                    _moveFilter.GetEntity(i).Del<EmptyNeighbors>();
                 }
             }
         }

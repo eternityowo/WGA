@@ -1,9 +1,10 @@
 ﻿using Leopotam.Ecs;
+using UnityEngine;
 
 namespace WGA.Components
 {
     internal struct EmptyNeighbors
     {
-        public EcsEntity[] Value;
+        public Vector3Int[] Value;
     }
 }
